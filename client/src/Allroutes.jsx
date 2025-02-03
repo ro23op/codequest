@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import AskQuestion from './pages/Askquestion/Askquestion';
 import Auth from './pages/Auth/Auth';
-import Question from './component/Homemainbar/Question';
+import Question from './pages/Question/Question';
 import Displayquestion from './pages/Question/Displayquestion';
 import Tags from './pages/Tags/Tags';
 import Users from './pages/Users/Users';
@@ -13,6 +13,7 @@ import Userprofile from './pages/Userprofile/Userprofile';
 function Allroutes({slideIn,handleSlideIn}) {
   return (
     <Routes>
+      
         <Route path='/' element={<Home slideIn={slideIn} handleSlideIn={handleSlideIn}/>}/>
         <Route path='/Askquestion' element={<AskQuestion/>}/>
         <Route path='/Auth' element={<Auth/>}/>

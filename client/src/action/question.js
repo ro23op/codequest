@@ -1,4 +1,4 @@
-import * as api from '../api'
+import * as api from "../api"
 
 export const askquestion = (questiondata, navigate) => async (dispatch) => {
     try {

@@ -4,6 +4,7 @@ import Navbar from './component/Navbar/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Allroutes from './Allroutes';
 import { fetchallusers } from './action/users';
+import { fetchallquestion } from './action/question';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(fetchallusers())
+    dispatch(fetchallusers());
+    dispatch(fetchallquestion());
   },[dispatch])
 
   useEffect(()=>{

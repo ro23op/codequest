@@ -8,16 +8,13 @@ import { legacy_createStore as createstore, applyMiddleware, compose } from 'red
 import {thunk} from 'redux-thunk';
 import reducers from './reducers';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const store = createstore(reducers, compose(applyMiddleware(thunk)))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const client_id = process.env.GOOGLE_CLIENT_ID
+
 root.render(
-  <GoogleOAuthProvider clientId={client_id}>
+  <GoogleOAuthProvider clientId= '843792813275-i1i19cl7c3og054lme9m71mt20qb69s7.apps.googleusercontent.com'>
   <Provider store={store}>
     <React.StrictMode>
       <App />

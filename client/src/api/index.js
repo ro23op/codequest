@@ -16,9 +16,8 @@ API.interceptors.request.use((req)=>{
 export const login = (authdata)=>API.post("user/login",authdata)
 export const signup = (authdata)=>API.post("user/signup",authdata)
 export const getallusers = ()=> API.get('/user/getallusers');
-export const updateprofile = (id,updatedata)=>API.patch(`user/update/${id}`,updatedata)
-
-export const postquestion = (questiondata)=> API.post("/questions/Ask",questiondata)
+export const updateprofile = (id,updatedata)=>API.patch(`user/update/${id}`,updatedata);
+export const postquestion = (questiondata)=> API.post("/questions/Ask",questiondata);
 export const getallquestions = ()=> API.get("/questions/get");
 export const deletequestion = (id) => API.delete(`/questions/delete/${id}`);
 export const votequestion = (id,value) => API.patch(`/questions/vote/${id}`,{value})

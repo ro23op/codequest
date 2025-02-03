@@ -6,8 +6,10 @@ import userroutes from './routes/user.js'
 import questionroutes from './routes/question.js'
 import answerroutes from './routes/answer.js'
 
+
 const app = express();
 dotenv.config();
+
 
 app.use(express.json({limit:"30mb", extended:true}))
 app.use(express.urlencoded({limit:"30mb", extended:true}));
