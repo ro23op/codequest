@@ -7,7 +7,7 @@ import '../../App.css'
 function Home({slideIn}) {
   return (
     <div className="home-container-1">
-        <LeftsideBar slideIn={slideIn}/>
+        <LeftsideBar slidein={slideIn}/>
     <div className="home-container-2">
         <Homemainbar/>
         <Rightsidebar/>

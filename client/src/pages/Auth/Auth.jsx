@@ -5,6 +5,9 @@ import './Auth.css';
 import icon from '../../assets/icon.png';
 import Aboutauth from './Aboutauth';
 import {signup,login} from '../../action/auth'
+import { GoogleLogin } from '@react-oauth/google';
+import { setcurrentuser } from '../../action/currentuser';
+
 
 function Auth() {
     const [issignup, setissignup] = useState(false);
@@ -35,6 +38,29 @@ const handleswitch = ()=>{
     setemail("");
     setpassword("");
 }
+// google parser
+const handleLoginSuccess = (response) => {
+    const credential = response.credential;
+    const userInfo = parseJwt(credential);
+    localStorage.setItem("Profile",JSON.stringify(userInfo));
+    dispatch(setcurrentuser(userInfo));
+    navigate("/")
+    // console.log("User Info:", userInfo);
+  };
+
+  const parseJwt = (token) => {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  };
 
 
     return (
@@ -42,7 +68,26 @@ const handleswitch = ()=>{
             {issignup && <Aboutauth />}
             <div className="auth-container-2">
                 <img src={icon} alt="icon" className='login-logo' />
+
+
+                <GoogleLogin
+                    // onSuccess={credentialResponse => {
+                    //     // console.log(credentialResponse);
+                    //     localStorage("google-user",credentialResponse);
+                    //     navigate("/")
+                    // }}
+                    onSuccess={handleLoginSuccess}
+
+                    onError={() => {
+                        console.log('Login Failed');
+                    }}
+                />
+
+
+
+
                 <form onSubmit={handlesubmit}>
+                
                     {issignup && (
                         <label htmlFor="name">
                             <h4>Display Name</h4>
