@@ -23,3 +23,4 @@ export const deletequestion = (id) => API.delete(`/questions/delete/${id}`);
 export const votequestion = (id,value) => API.patch(`/questions/vote/${id}`,{value})
 export const postanswer = (id,noofanswers,answerbody,useranswered)=> API.patch(`/answer/post/${id}`,{noofanswers,answerbody,useranswered})
 export const deleteanswer = (id,answerid,noofanswers)=>API.patch(`/answer/delete/${id}`,{answerid,noofanswers})
+export const addFriend = (userId, friendId) => API.post("/user/add-friend", { userId, friendId });

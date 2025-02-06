@@ -6,6 +6,7 @@ const userschema = mongoose.Schema({
     password:{type:String,required:true},
     about:{type:String},
     tags:{type:[String]},
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     joined:{type:Date,default:Date.now}
 })
 

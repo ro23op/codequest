@@ -19,7 +19,9 @@ const Leftsidebar = ({ slideIn }) => {
         </button>
         <div className="side-nav-div">
           <div>
-            <p>PUBLIC</p>
+          <NavLink to='/Public' className="side-nav-links" activeclassname='active'>
+            <p>Public</p>
+          </NavLink>
           </div>
           <button className='nav-btnn'>
             <NavLink to='/Question' className='side-nav-links' activeclassname='active'>

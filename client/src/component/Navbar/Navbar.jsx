@@ -11,7 +11,7 @@ import {jwtDecode} from 'jwt-decode'
 
 function Navbar({handleSlideIn}) {
     var User = useSelector((state)=>state.currentuserreducer);
-    console.log("user",User)
+    // console.log("user",User)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handlelogout = ()=>{

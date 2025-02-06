@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import users from '../models/auth.js'
+import users from '../models/auth.js';
 
 export const getallusers = async(req,res)=>{
     try {
@@ -35,3 +35,27 @@ export const updateprofile = async(req,res)=>{
         return
     }
 }
+
+export const addFriend = async (req, res) => {
+  try {
+      const { userId, friendId } = req.body;
+      const user = await users.findById(userId);
+      const friend = await users.findById(friendId);
+
+      if (!user || !friend) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      // Check if already friends
+      if (!user.friends.includes(friendId)) {
+          user.friends.push(friendId);
+          await user.save();
+      }
+
+      const updatedUser = await users.findById(userId).populate("friends"); // Populate friends for frontend
+    //   console.log("Updated User:", updatedUser);
+      res.status(200).json(updatedUser); // Send updated user data
+  } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
+  }
+};
