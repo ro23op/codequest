@@ -11,7 +11,7 @@ import {jwtDecode} from 'jwt-decode'
 
 function Navbar({handleSlideIn}) {
     var User = useSelector((state)=>state.currentuserreducer);
-    console.log(User)
+    console.log("user",User)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handlelogout = ()=>{
@@ -63,7 +63,8 @@ function Navbar({handleSlideIn}) {
                     <>
                     <Avatar backgroundColor='#009dff' px='10px' py='7px' borderRadius='50%' color='white'>
                         <Link to={`/Users/${User?.result?._id}`} style={{color:'white',textDecoration:'none'}}></Link>
-                        {User.result.name.charAt(0).toUpperCase()}
+                        {/* {User.name.charAt(0).toUpperCase()} */}
+                        {User.name ? User.name.charAt(0).toUpperCase():User?.result.name.charAt(0).toUpperCase()}
                     </Avatar>
                     <button className="nav-tem nav-links" onClick={handlelogout}>Log out</button>
                     </>
@@ -74,4 +75,4 @@ function Navbar({handleSlideIn}) {
     )
 }
 
-export default Navbar
+export default Navbar;
