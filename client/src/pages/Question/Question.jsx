@@ -7,7 +7,7 @@ import '../../App.css'
 const Question = ({slideIn}) => {
   return (
     <div className="home-container-1">
-      <Leftsidebar slidein={slideIn}/>
+      <Leftsidebar slideIn={slideIn}/>
       <div className="home-container-2">
         <Homemainbar/>
         <Rightsidebar/>
