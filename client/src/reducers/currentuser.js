@@ -11,6 +11,13 @@ const currentuserreducer = (state = null, action) => {
                     friends: action.payload.friends, // Update only the friends array
                 },
             };
+        case "FETCH_USER_FRIENDS_SUCCESS":
+            return {
+                ...state,
+                friends: action.payload, // Ensure `action.payload` contains the friends array
+            };
+        case "FETCH_USER_FRIENDS_FAIL":
+            return { ...state, error: action.payload, loading: false };
         default:
             return state;
     }

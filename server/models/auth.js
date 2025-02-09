@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userschema = mongoose.Schema({
+const Userschema = mongoose.Schema({
     name:{type:String,required:true},
     email:{type:String,required:true},
     password:{type:String,required:true},
@@ -10,4 +10,4 @@ const userschema = mongoose.Schema({
     joined:{type:Date,default:Date.now}
 })
 
-export default mongoose.model("User",userschema)
+export default mongoose.model("User",Userschema)

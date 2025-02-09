@@ -59,3 +59,21 @@ export const addFriend = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getUserFriends = async (req, res) => {
+    try {
+      const { userId } = req.params;
+    //   console.log("From controller user",userId)  
+      // Find user and populate friends (assuming you store friend IDs in `friends` array)
+      const user = await users.findById(userId).populate("friends", "name email"); // Adjust fields as needed
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.status(200).json(user.friends); // Return the list of friends
+    } catch (error) {
+      console.error("Error fetching friends:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  };

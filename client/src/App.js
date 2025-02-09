@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Allroutes from './Allroutes';
 import { fetchallusers } from './action/users';
 import { fetchallquestion } from './action/question';
+import { fetchPosts } from './action/post';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   useEffect(()=>{
     dispatch(fetchallusers());
     dispatch(fetchallquestion());
+    dispatch(fetchPosts());
   },[dispatch])
 
   useEffect(()=>{

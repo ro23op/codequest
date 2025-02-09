@@ -1,6 +1,6 @@
 import express from 'express';
 import  {login,signup} from '../controller/auth.js'
-import { getallusers,updateprofile,addFriend } from '../controller/users.js';
+import { getallusers,updateprofile,addFriend,getUserFriends } from '../controller/users.js';
 import auth from '../middleware/auth.js'
 
 
@@ -10,7 +10,7 @@ router.post("/signup",signup);
 router.post("/login",login);
 
 router.get("/getallusers",getallusers)
-
+router.get("/friends/:userId", getUserFriends);
 
 router.post('/add-friend', addFriend);
 router.patch("/update/:id",auth,updateprofile)

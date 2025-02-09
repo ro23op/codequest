@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import userroutes from './routes/user.js'
 import questionroutes from './routes/question.js'
 import answerroutes from './routes/answer.js'
+import postroutes from './routes/post.js'
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use('/user',userroutes);
 app.use('/questions',questionroutes)
+app.use('/post',postroutes)
 app.use('/answer',answerroutes)
 
 

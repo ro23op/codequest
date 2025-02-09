@@ -1,7 +1,7 @@
 import React from 'react'
 import Rightsidebar from '../../component/Rightsidebar/Rightsidebar'
 import Leftsidebar from '../../component/Leftsidebar/Leftsidebar'
-import Homemainbar from '../../component/Homemainbar/Homemainbar'
+import HomemainbarP from './HomemainbarP'
 import '../../App.css'
 
 const Public = ({slideIn}) => {
@@ -9,7 +9,7 @@ const Public = ({slideIn}) => {
     <div className="home-container-1">
       <Leftsidebar slideIn={slideIn}/>
       <div className="home-container-2">
-        <Homemainbar/>
+        <HomemainbarP/>
         <Rightsidebar/>
       </div>
     </div>

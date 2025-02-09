@@ -9,6 +9,8 @@ import Tags from './pages/Tags/Tags';
 import Users from './pages/Users/Users';
 import Userprofile from './pages/Userprofile/Userprofile';
 import Public from './pages/PublicSection/Public';
+import Createpost from './pages/Createpost/Createpost';
+
 function Allroutes({slideIn,handleSlideIn}) {
   return (
     <Routes>
@@ -22,6 +24,7 @@ function Allroutes({slideIn,handleSlideIn}) {
         <Route path='/Tags' element={<Tags slideIn={slideIn} handleSlideIn={handleSlideIn}/>}/>
         <Route path='/Users' element={<Users slideIn={slideIn} handleSlideIn={handleSlideIn}/>}/>
         <Route path='/Users/:id' element={<Userprofile slideIn={slideIn} handleSlideIn={handleSlideIn}/>}/>
+        <Route path='/Createpost' element={<Createpost/>}/>
     </Routes>
   )
 }

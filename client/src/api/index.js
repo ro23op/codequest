@@ -24,3 +24,12 @@ export const votequestion = (id,value) => API.patch(`/questions/vote/${id}`,{val
 export const postanswer = (id,noofanswers,answerbody,useranswered)=> API.patch(`/answer/post/${id}`,{noofanswers,answerbody,useranswered})
 export const deleteanswer = (id,answerid,noofanswers)=>API.patch(`/answer/delete/${id}`,{answerid,noofanswers})
 export const addFriend = (userId, friendId) => API.post("/user/add-friend", { userId, friendId });
+export const createPost = (formData) => API.post("/post/create", formData, {
+    headers: {
+        "Content-Type": "multipart/form-data"
+    }
+});
+export const getAllPosts = () => API.get("/post/get");
+export const likePost = (postId, userId) => API.post("/post/like",{postId,userId})
+export const commentOnPost = (postId,userId,comment) => API.post("/post/comment",{postId,userId,comment});
+export const getUserFriends = (userId) => API.get(`user/friends/${userId}`)

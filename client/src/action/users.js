@@ -16,3 +16,21 @@ export const updateprofile = (id,updatedata)=>async(dispatch)=>{
         console.log(error)
     }
 }
+export const getUserFriends = (userId) => async (dispatch) => {
+  try {
+    // console.log("from user action", userId);
+
+    // Ensure this correctly calls the API
+    const { data } = await api.getUserFriends(userId);
+
+    // console.log("Friends API Response:", data); // Debug response
+
+    dispatch({ type: "FETCH_USER_FRIENDS_SUCCESS", payload: data.friends });
+
+  } catch (error) {
+    console.error("Error fetching friends:", error.response ? error.response.data : error.message);
+  }
+};
+
+
+  
