@@ -29,6 +29,9 @@ export const createPost = (formData) => API.post("/post/create", formData, {
         "Content-Type": "multipart/form-data"
     }
 });
+export const SendOtp = (email) => API.post("/auth/send-otp",{email});
+export const verifyotp = (email,otp) => API.post("/auth/verify-otp",{email,otp});
+export const loginhistory = (userId) => API.get(`auth/login-history/${userId}`)
 export const getAllPosts = () => API.get("/post/get");
 export const likePost = (postId, userId) => API.post("/post/like",{postId,userId})
 export const commentOnPost = (postId,userId,comment) => API.post("/post/comment",{postId,userId,comment});

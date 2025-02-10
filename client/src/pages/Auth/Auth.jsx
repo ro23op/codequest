@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import './Auth.css';
@@ -7,31 +7,86 @@ import Aboutauth from './Aboutauth';
 import {signup,login} from '../../action/auth'
 import { GoogleLogin } from '@react-oauth/google';
 import { setcurrentuser } from '../../action/currentuser';
+import { SendOtp, verifyOtp } from '../../action/login';
 
 
 function Auth() {
     const [issignup, setissignup] = useState(false);
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
+    const [otp,setOtp] = useState("");
+    const [showOtpInput,setShowOtpInput] = useState(false)
     const [password, setpassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-const handlesubmit =(e)=>{
-    e.preventDefault();
-    if(!email && !password){
-        alert("Enter Email and Password")
-    }
-    if(issignup){
-        if(!name){
-            alert('Enter a name to continue')
+
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+        if (/Mobi|Android|iPhone/i.test(userAgent)) {
+            const currentHour = new Date().getHours();
+            if (currentHour < 10 || currentHour >= 13) {
+                alert("Mobile login allowed only between 10 AM - 1 PM");
+            }
         }
-        dispatch(signup({name,email,password},navigate))
-        console.log(name,password,email)
-    }else{
-        dispatch(login({email,password},navigate))
-        console.log(email,password)
-    }
-}
+    }, []);
+
+        const detectBrowser = () => {
+        const userAgent = navigator.userAgent;
+        if (/Chrome/.test(userAgent) && !/Edge/.test(userAgent)) return "Chrome";
+        if (/Edg/.test(userAgent)) return "Edge";
+        return "Other";
+    };
+
+
+    const handlesubmit = async (e) => {
+        e.preventDefault();
+        if (!email && !password) {
+            alert("Enter Email and Password");
+            return;
+        }
+        if (issignup) {
+            if (!name) {
+                alert("Enter a name to continue");
+                return;
+            }
+            dispatch(signup({ name, email, password }, navigate));
+            return;
+        }
+        const browser = detectBrowser();
+        if (browser === "Chrome") {
+            try {
+                dispatch(SendOtp(email));
+                setShowOtpInput(true);
+            } catch (error) {
+                console.error("Error sending OTP", error);
+            }
+            return;
+        } else if (browser === "Edge") {
+            dispatch(login({ email, password }, navigate));
+        } else {
+            alert("Invalid login attempt");
+        }
+    };
+
+    const handleOtpSubmit = async () => {
+        try {
+            console.log("Entered OTP:", otp);
+    
+            // ✅ Make sure to pass `{ email, otp }`
+            const response = await dispatch(verifyOtp(email, otp ));
+    
+            if (response.payload.success) {  // ✅ Access `.payload.success`
+                console.log("✅ OTP Verified! Logging in...");
+                dispatch(login({ email, password }, navigate)); 
+            } else {
+                alert("❌ Invalid OTP");
+            }
+        } catch (error) {
+            console.error("OTP verification failed:", error);
+        }
+    };
+    
+    
 const handleswitch = ()=>{
     setissignup(!issignup);
     setname("");
@@ -115,9 +170,14 @@ const handleLoginSuccess = (response) => {
                             setpassword(e.target.value)
                         }} />
                     </label>
-                    <button type='submit' className='auth-btn'>
-                        {issignup ? "Sign up": "Log in"}
-                    </button>
+                    {showOtpInput && !issignup && (
+                        <label htmlFor="otp">
+                            <h4>Enter OTP</h4>
+                            <input type="text" id='otp' name='otp' value={otp} onChange={(e) => setOtp(e.target.value)} />
+                            <button type="button" onClick={handleOtpSubmit} className='auth-btn'>Verify OTP</button>
+                        </label>
+                    )}
+                    {!showOtpInput && <button type='submit' className='auth-btn'>{issignup ? "Sign up" : "Log in"}</button>}
                 </form>
                 <p>
                     {issignup?"Already have an account":"Don't have an account"}

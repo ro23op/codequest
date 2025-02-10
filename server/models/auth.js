@@ -7,7 +7,10 @@ const Userschema = mongoose.Schema({
     about:{type:String},
     tags:{type:[String]},
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    joined:{type:Date,default:Date.now}
+    joined:{type:Date,default:Date.now},
+    otp: { type: String }, // Store OTP temporarily
+    otpExpires: { type: Date }, // Expiry time for OTP
+    createdAt: { type: Date, default: Date.now }
 })
 
 export default mongoose.model("User",Userschema)
