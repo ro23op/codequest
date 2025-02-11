@@ -34,5 +34,5 @@ export const verifyotp = (email,otp) => API.post("/auth/verify-otp",{email,otp})
 export const loginhistory = (userId) => API.get(`auth/login-history/${userId}`)
 export const getAllPosts = () => API.get("/post/get");
 export const likePost = (postId, userId) => API.post("/post/like",{postId,userId})
-export const commentOnPost = (postId,userId,comment) => API.post("/post/comment",{postId,userId,comment});
+export const commentOnPost = (postId,username,comment) => API.post("/post/comment",{postId,username,comment});
 export const getUserFriends = (userId) => API.get(`user/friends/${userId}`)

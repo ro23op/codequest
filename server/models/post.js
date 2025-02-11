@@ -8,7 +8,7 @@ const Postschema = new mongoose.Schema({
     comments: [
         {
             commentBody: { type: String, required: true },
-            commentedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            commentedBy: String,
             commentedOn: { type: Date, default: Date.now },
         }
     ],

@@ -20,10 +20,10 @@ function Userprofile({ slideIn }) {
     const dispatch = useDispatch();
     const [Switch, setswitch] = useState(false);
 
-    useEffect(() => {
-        console.log("Current User:", currentuser);
-        console.log("Current Profile:", currentprofile);
-    }, [currentuser, currentprofile]);
+    // useEffect(() => {
+    //     console.log("Current User:", currentuser);
+    //     console.log("Current Profile:", currentprofile);
+    // }, [currentuser, currentprofile]);
 
     // Check if the current user is already friends with the profile user
     const isFriend = currentuser?.result?.friends?.some(friendId => friendId.toString() === currentprofile?._id.toString());

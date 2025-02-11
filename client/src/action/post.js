@@ -30,7 +30,7 @@ export const createPost = (formData, navigate) => async (dispatch) => {
 // Like a post
 export const likePost = (postId, userId) => async dispatch => {
     try {
-        const { data } = await api.likePost("/api/posts/like", { postId, userId });
+        const { data } = await api.likePost( postId, userId );
         dispatch({ type: "LIKE_POST_SUCCESS", payload: { postId, likes: data.likes } });
     } catch (error) {
         console.error("Error liking post:", error);
@@ -38,10 +38,11 @@ export const likePost = (postId, userId) => async dispatch => {
 };
 
 // Comment on a post
-export const commentOnPost = (postId, userId, comment) => async dispatch => {
+export const commentOnPost = (postId, username, comment) => async dispatch => {
     try {
-        const { data } = await api.commentOnPost("/api/posts/comment", { postId, userId, comment });
+        const { data } = await api.commentOnPost(postId, username, comment);
         dispatch({ type: "COMMENT_POST_SUCCESS", payload: { postId, comment: data } });
+        dispatch(fetchPosts())
     } catch (error) {
         console.error("Error commenting on post:", error);
     }

@@ -10,7 +10,9 @@ const Userschema = mongoose.Schema({
     joined:{type:Date,default:Date.now},
     otp: { type: String }, // Store OTP temporarily
     otpExpires: { type: Date }, // Expiry time for OTP
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    postsToday: { type: Number, default: 0 },
+    lastPostDate: { type: String, default: new Date().toISOString().split('T')[0] }
 })
 
 export default mongoose.model("User",Userschema)

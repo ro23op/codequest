@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts, likePost, commentOnPost } from "../../action/post";
-import { getUserFriends } from "../../action/users";
+import { likePost, commentOnPost } from "../../action/post";
 import "../../component/Homemainbar/Homemainbar.css";
 
 function HomemainbarP() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.currentuserreducer?.result); // Fix user structure
-  const userFriends = useSelector((state)=> state.currentuserreducer?.result?.friends) || []
-  const {posts,loading} = useSelector((state)=>state.postreducer)
+  const userFriends = useSelector((state) => state.currentuserreducer?.result?.friends) || []
+  const { posts, loading } = useSelector((state) => state.postreducer)
   const [comments, setComments] = useState({});
-
-  useEffect(() => {
-    dispatch(fetchPosts());
-    if (user?._id) {  
-      // console.log("Fetching friends for user:", user._id);
-      dispatch(getUserFriends(user._id));
-    }
-  }, [dispatch, user?._id]);
-  
 
   // Safe check for userFriends length
   const canPost = () => userFriends?.length >= 1;
@@ -54,7 +44,7 @@ function HomemainbarP() {
       return;
     }
     if (comments[postId]?.trim()) {
-      dispatch(commentOnPost(postId, user.id, comments[postId]));
+      dispatch(commentOnPost(postId, user.name, comments[postId]));
       setComments({ ...comments, [postId]: "" });
     }
   };
@@ -78,8 +68,17 @@ function HomemainbarP() {
               <div key={post._id} className="post-card">
                 <p className="post-user">{post.postedBy}</p>
                 <p className="post-content">{post.body}</p>
-                {post.mediaUrl && (
-                  <img src={post.mediaUrl} alt="Media" className="post-image" />
+                {post.media && (
+                  <div className="post-media">
+                    {post.media.endsWith(".mp4") || post.media.endsWith(".webm") || post.media.endsWith(".ogg") ? (
+                      <video controls className="post-video">
+                        <source src={post.media} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <img src={post.media} alt="Post media" className="post-image" />
+                    )}
+                  </div>
                 )}
                 <div className="post-actions">
                   <button className="like-btn" onClick={() => handleLike(post._id)}>
@@ -97,11 +96,15 @@ function HomemainbarP() {
                   </button>
                 </div>
                 <div className="post-comments">
-                  {post.comments.map((c, index) => (
-                    <p key={index} className="comment-text">
-                      <strong>{c.user?.name}:</strong> {c.text}
-                    </p>
-                  ))}
+                  {post.comments && post.comments.length > 0 ? (
+                    post.comments.map((c, index) => (
+                      <div key={index} className="comment-item">
+                        <strong>{c.commentedBy}:</strong> {c.commentBody}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="no-comments">No comments yet</p>
+                  )}
                 </div>
               </div>
             ))

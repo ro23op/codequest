@@ -53,6 +53,7 @@ export const addFriend = async (req, res) => {
       }
 
       const updatedUser = await users.findById(userId).populate("friends"); // Populate friends for frontend
+    //   console.log("updateduser",updatedUser);
     //   console.log("Updated User:", updatedUser);
       res.status(200).json(updatedUser); // Send updated user data
   } catch (error) {

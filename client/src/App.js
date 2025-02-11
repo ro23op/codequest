@@ -6,11 +6,21 @@ import Allroutes from './Allroutes';
 import { fetchallusers } from './action/users';
 import { fetchallquestion } from './action/question';
 import { fetchPosts } from './action/post';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
+import { getUserFriends } from './action/currentuser';
+
 
 function App() {
   const [slideIn, setSlideIn] = useState(true);
   const dispatch = useDispatch()
+  // const user = useSelector((state) => state.currentuserreducer?.result); // Fix user structure
+  // useEffect(() => {
+  //   dispatch(fetchPosts());
+  //   if (user?._id) {
+  //     // console.log("Fetching friends for user:", user._id);
+  //     dispatch(getUserFriends(user._id));
+  //   }
+  // }, [dispatch, user?._id]);
 
   useEffect(()=>{
     dispatch(fetchallusers());
